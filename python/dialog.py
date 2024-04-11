@@ -16,15 +16,16 @@ parser.add_argument('-t',help='list of filetypes to search for. format as ordere
 args=parser.parse_args()
 
 # error if filetypes strings are not paired
-if (len(args.t) % 2):
-    sys.stderr.write("\nError: Filetype parameters not paired.\n")
-    parser.print_help(sys.stderr)
-    sys.exit(1)
+filetypes = []
+if args.t is not None:
+    if (len(args.t) % 2):
+        sys.stderr.write("\nError: Filetype parameters not paired.\n")
+        parser.print_help(sys.stderr)
+        sys.exit(1)
+    filetypes = [ (args.t[x*2], args.t[x*2+1]) for x in range(len(args.t) // 2) ]
 if len(sys.argv)==1:
     parser.print_help(sys.stderr)
     sys.exit(1)
-
-filetypes = [ (args.t[x*2], args.t[x*2+1]) for x in range(len(args.t) // 2) ]
 
 if args.s:
     temp=tkinter.filedialog.asksaveasfilename(filetypes=filetypes)
