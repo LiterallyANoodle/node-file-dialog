@@ -25,6 +25,16 @@ function askdialog(config) {
     cmd += ' -o';
   else if (config.type === 'open-files')
     cmd += ' -f';
+
+  // filter by file types in config.filetypes
+  // accepts objects of { "Label": "Extension" }
+  if (config.filetypes) {
+    cmd += ' -t'
+    for (let key in config.filetypes) {
+      cmd += ' ' + key + ' ' + config.filetypes[key]
+    }
+  }
+
   var promise = new Promise((resolve, reject) => {
     exec(path.join(root, cmd), (error, stdout, stderr) => {
       if (stdout) {
