@@ -35,8 +35,6 @@ function askdialog(config) {
     }
   }
 
-  print(cmd)
-
   var promise = new Promise((resolve, reject) => {
     exec(path.join(root, cmd), (error, stdout, stderr) => {
       if (stdout) {
